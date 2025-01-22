@@ -37,6 +37,7 @@ jobs:
       # 5. Run tests
       - name: Run tests
         run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest --maxfail=1 --disable-warnings
 
       # 6. Deployment (Placeholder)
