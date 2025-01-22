@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline 
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. Check out the code
+      # 1. Check out the code file
       - name: Check out repository
         uses: actions/checkout@v3
 
