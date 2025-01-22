@@ -24,7 +24,10 @@ def test_model_accuracy():
     assert mse < 1e-10, f"MSE is {mse}, expected something very close to 0."
 
 
-@pytest.mark.parametrize("value,expected", [(0, 1), (1, 3), (2, 5)])
+@pytest.mark.parametrize(
+    "value,expected",
+    [(0, 1), (1, 3), (2, 5)]
+)
 def test_single_prediction(value, expected):
     """
     Verify single-value predictions match the formula y = 2x + 1.
