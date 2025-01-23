@@ -2,9 +2,11 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main", "ft-module2" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   setup:
@@ -16,8 +18,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Install dependencies
+      - name: Install dependencies and save virtual environment
         run: |
+          python -m venv venv
+          source venv/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt flake8 pytest
       - name: Save workspace
@@ -25,6 +29,11 @@ jobs:
         with:
           name: workspace
           path: .
+      - name: Save virtual environment
+        uses: actions/upload-artifact@v4
+        with:
+          name: venv
+          path: venv
 
   lint:
     needs: setup
@@ -34,12 +43,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: workspace
+      - name: Restore virtual environment
+        uses: actions/download-artifact@v4
+        with:
+          name: venv
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Lint with flake8
+      - name: Activate virtual environment and run flake8
         run: |
+          source venv/bin/activate
           flake8 src tests
 
   test:
@@ -50,12 +64,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: workspace
+      - name: Restore virtual environment
+        uses: actions/download-artifact@v4
+        with:
+          name: venv
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Run tests
+      - name: Activate virtual environment and run tests
         run: |
+          source venv/bin/activate
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest --maxfail=1 --disable-warnings
 
@@ -69,5 +88,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: workspace
-      - name: Deploy
-        run: echo "Deploying model..."
+      - name: Restore virtual environment
+        uses: actions/download-artifact@v4
+        with:
+          name: venv
+      - name: Activate virtual environment and deploy
+        run: |
+          source venv/bin/activate
+          echo "Deploying model..."
