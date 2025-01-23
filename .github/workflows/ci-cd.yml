@@ -2,11 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - [ "main", "ft-module2" ]
+    branches: [ "main", "ft-module2" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   lint:
