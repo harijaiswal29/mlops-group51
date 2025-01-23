@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bunty/Desktop/git/ml-ai/mlops-group51/mlruns/0/5e0d928eb9c74fccab1d58bc12d3c03a/artifacts
+end_time: 1737665500560
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5e0d928eb9c74fccab1d58bc12d3c03a
+run_name: melodic-panda-661
+run_uuid: 5e0d928eb9c74fccab1d58bc12d3c03a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1737665497343
+status: 3
+tags: []
+user_id: bunty

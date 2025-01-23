@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bunty/Desktop/git/ml-ai/mlops-group51/mlruns/0/66244c81c3a54fcc88908ba5de5cf814/artifacts
+end_time: 1737665497338
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 66244c81c3a54fcc88908ba5de5cf814
+run_name: gentle-pug-646
+run_uuid: 66244c81c3a54fcc88908ba5de5cf814
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1737665493552
+status: 3
+tags: []
+user_id: bunty
