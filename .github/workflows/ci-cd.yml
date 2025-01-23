@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  setup:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,87 +18,38 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - name: Install dependencies and save virtual environment
+      - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
           python -m pip install --upgrade pip
-          pip install -r requirements.txt flake8 pytest
-      - name: Save workspace
-        uses: actions/upload-artifact@v4
-        with:
-          name: workspace
-          path: .
-      - name: Save virtual environment
-        uses: actions/upload-artifact@v4
-        with:
-          name: venv
-          path: venv
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Restore workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: workspace
-      - name: Restore virtual environment
-        uses: actions/download-artifact@v4
-        with:
-          name: venv
-      - name: Fix permissions for virtual environment
-        run: chmod -R +x venv/bin
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Activate virtual environment and run flake8
-        run: |
-          source venv/bin/activate
-          flake8 src tests
+          pip install -r requirements.txt
+      - name: Run linting
+        run: flake8 src tests
 
   test:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Restore workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: workspace
-      - name: Restore virtual environment
-        uses: actions/download-artifact@v4
-        with:
-          name: venv
-      - name: Fix permissions for virtual environment
-        run: chmod -R +x venv/bin
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
-      - name: Activate virtual environment and run tests
+          python-version: '3.9'
+      - name: Install dependencies
         run: |
-          source venv/bin/activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests
+       run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest --maxfail=1 --disable-warnings
 
   deploy:
     needs: 
-      - lint
       - test
+      - lint
     runs-on: ubuntu-latest
     steps:
-      - name: Restore workspace
-        uses: actions/download-artifact@v4
-        with:
-          name: workspace
-      - name: Restore virtual environment
-        uses: actions/download-artifact@v4
-        with:
-          name: venv
-      - name: Fix permissions for virtual environment
-        run: chmod -R +x venv/bin
-      - name: Activate virtual environment and deploy
-        run: |
-          source venv/bin/activate
-          echo "Deploying model..."
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Deploy
+        run: echo "Deploying model..." 
