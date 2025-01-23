@@ -81,5 +81,4 @@ jobs:
           name: workspace
       - name: deploy
         run: |
-          source venv/bin/activate
           echo "Deploying model..."
