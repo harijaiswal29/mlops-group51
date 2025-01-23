@@ -8,7 +8,7 @@ def test_model_training():
     Ensure the train_and_log function returns a model with a 'predict' method.
     """
     model = train_and_log()
-    assert hasattr(model, "predict"), "Trained model must have a predict() method."
+    assert hasattr(model, "predict"), "Trained model must have predict method."
 
 
 def test_model_accuracy():
