@@ -69,6 +69,16 @@ mlflow ui --port 5001
 
 
 
+docker ps
+
+docker build -t mlops-assign .
+
+docker run -p 5000:5000 mlops-assign
+
+
+
+
+
 
 
 Blob SAS token
