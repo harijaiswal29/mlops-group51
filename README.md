@@ -63,6 +63,7 @@ git commit -m "Revert to initial version of data.csv"
 python models/ml-model.py 
 
 mlflow ui --gunicorn-opts="--timeout 120"
+mlflow ui --port 5001    
 
 
 
