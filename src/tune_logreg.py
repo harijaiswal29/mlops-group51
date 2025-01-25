@@ -15,6 +15,19 @@ from sklearn.metrics import (
 )
 
 
+def setup_data() :
+    # 1. Load the Iris dataset as a DataFrame for convenience
+    data = load_iris()
+    
+    X_df = pd.DataFrame(data.data, columns=data.feature_names)
+    y_df = pd.Series(data.target, name="target")
+
+    # 2. Split into train/test
+    return train_test_split(
+        X_df, y_df, test_size=0.3, random_state=42
+    )
+
+
 def manual_parameter_experiments():
     # Define parameter combinations to try manually
     param_combinations = [
@@ -23,16 +36,7 @@ def manual_parameter_experiments():
         {"C": 10.0, "solver": "liblinear", "max_iter": 1000}
     ]
 
-    # 1. Load the Iris dataset as a DataFrame for convenience
-    data = load_iris()
-    
-    X_df = pd.DataFrame(data.data, columns=data.feature_names)
-    y_df = pd.Series(data.target, name="target")
-
-    # 2. Split into train/test
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_df, y_df, test_size=0.3, random_state=42
-    )
+    X_train, X_test, y_train, y_test = setup_data()
 
     # 3. Scale the data => yields numpy arrays without column names
     scaler = StandardScaler()
@@ -79,16 +83,9 @@ def manual_parameter_experiments():
 
 
 def tune_logistic_regression():
-    # 1. Load the Iris dataset as a DataFrame for convenience
-    data = load_iris()
-    
-    X_df = pd.DataFrame(data.data, columns=data.feature_names)
-    y_df = pd.Series(data.target, name="target")
 
     # 2. Split into train/test
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_df, y_df, test_size=0.3, random_state=42
-    )
+    X_train, X_test, y_train, y_test = setup_data()
 
     # 3. Scale the data => yields numpy arrays without column names
     scaler = StandardScaler()
