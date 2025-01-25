@@ -1,8 +1,10 @@
 import mlflow
 import mlflow.sklearn
 import pandas as pd
+import joblib
 
 from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
@@ -24,6 +26,8 @@ def read_data_from_file(file_path="data/iris_data.csv"):
     # Separate features (X_df) and target (y_df)
     X_df = iris_df.drop(columns=["target"])
     y_df = iris_df["target"]
+   
+
     return X_df, y_df
 
 def setup_data():
@@ -122,9 +126,11 @@ def tune_logistic_regression():
     )
 
     grid_search.fit(X_train_scaled, y_train)
+    
     best_model = grid_search.best_estimator_
     best_params = grid_search.best_params_
     best_cv_acc = grid_search.best_score_
+    joblib.dump(best_model,'model.joblib')
 
     # 6. Evaluate on hold-out test
     preds_test = best_model.predict(X_test_scaled)
