@@ -9,7 +9,8 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
-    confusion_matrix
+    r2_score,
+    mean_squared_error
 )
 from data_utils import setup_data
 
@@ -45,6 +46,9 @@ def manual_parameter_experiments():
             precision = precision_score(y_test, preds_test, average="weighted")
             recall = recall_score(y_test, preds_test, average="weighted")
             f1 = f1_score(y_test, preds_test, average="weighted")
+            mse = mean_squared_error(y_test,preds_test)
+            r2 = r2_score(y_test,preds_test)
+
 
             # Log parameters and metrics
             mlflow.log_params(params)
@@ -52,6 +56,8 @@ def manual_parameter_experiments():
             mlflow.log_metric("test_precision", precision)
             mlflow.log_metric("test_recall", recall)
             mlflow.log_metric("test_f1_score", f1)
+            mlflow.log_metric("test_mse", mse)
+            mlflow.log_metric("test_r2_score", r2)
 
             # Log model
             sample_input = pd.DataFrame([X_test_scaled[0]], dtype="float64")
@@ -63,7 +69,7 @@ def manual_parameter_experiments():
 
         print(f"Logged experiment with params: {params}")
         print(f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "
-          f"Recall: {recall:.4f}, F1: {f1:.4f}")
+          f"Recall: {recall:.4f}, F1: {f1:.4f}, MSE: {mse:4f}, r2_score: {r2:4f} ")
 
 
 if __name__ == "__main__":
