@@ -43,7 +43,8 @@ def manual_parameter_experiments():
             # Evaluate on the test set
             preds_test = model.predict(X_test_scaled)
             accuracy = accuracy_score(y_test, preds_test)
-            precision = precision_score(y_test, preds_test, average="weighted")
+            precision = precision_score(y_test,
+                                        preds_test, average="weighted")
             recall = recall_score(y_test, preds_test, average="weighted")
             f1 = f1_score(y_test, preds_test, average="weighted")
             mse = mean_squared_error(y_test, preds_test)
