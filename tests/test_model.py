@@ -35,4 +35,3 @@ def test_single_prediction(value, expected):
     model = train_and_log()
     pred = model.predict([[value]])[0]
     assert abs(pred - expected) < 1e-7, f"Got {pred}, expected {expected}"
-    
