@@ -14,6 +14,7 @@ from sklearn.metrics import (
 )
 from data_utils import setup_data
 
+
 def manual_parameter_experiments():
     # Define parameter combinations to try manually
     param_combinations = [
@@ -23,12 +24,10 @@ def manual_parameter_experiments():
     ]
 
     X_train, X_test, y_train, y_test = setup_data()
-
     # 3. Scale the data => yields numpy arrays without column names
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
-
     mlflow.set_experiment("Logistic Regresssion Experiment")
     # Loop through each parameter combination and log results
     for params in param_combinations:
@@ -37,8 +36,8 @@ def manual_parameter_experiments():
             solver=params["solver"],
             max_iter=params["max_iter"]
         )
-    
-        with mlflow.start_run(run_name=f"Manual_Experiment_params"):
+
+        with mlflow.start_run(rclsun_name="Manual_Experiment_params"):
             model.fit(X_train_scaled, y_train)
 
             # Evaluate on the test set
@@ -47,9 +46,8 @@ def manual_parameter_experiments():
             precision = precision_score(y_test, preds_test, average="weighted")
             recall = recall_score(y_test, preds_test, average="weighted")
             f1 = f1_score(y_test, preds_test, average="weighted")
-            mse = mean_squared_error(y_test,preds_test)
-            r2 = r2_score(y_test,preds_test)
-
+            mse = mean_squared_error(y_test, preds_test)
+            r2 = r2_score(y_test, preds_test)
 
             # Log parameters and metrics
             mlflow.log_params(params)
@@ -69,10 +67,8 @@ def manual_parameter_experiments():
             )
 
         print(f"Logged experiment with params: {params}")
-        print(f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "
-          f"Recall: {recall:.4f}, F1: {f1:.4f}, MSE: {mse:4f}, r2_score: {r2:4f} ")
+        print(f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "f"Recall: {recall:.4f}, F1: {f1:.4f}, MSE: {mse:4f}, r2_score: {r2:4f} ")
 
 
 if __name__ == "__main__":
     manual_parameter_experiments()
-

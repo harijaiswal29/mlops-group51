@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import  GridSearchCV
+from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     accuracy_score,
@@ -44,11 +44,10 @@ def tune_logistic_regression():
     )
 
     grid_search.fit(X_train_scaled, y_train)
-    
     best_model = grid_search.best_estimator_
     best_params = grid_search.best_params_
     best_cv_acc = grid_search.best_score_
-    joblib.dump(best_model,'models/best_model.joblib')
+    joblib.dump(best_model, 'models/best_model.joblib')
 
     # 6. Evaluate on hold-out test
     preds_test = best_model.predict(X_test_scaled)
@@ -71,9 +70,7 @@ def tune_logistic_regression():
         mlflow.log_metric("test_f1_score", f1)
 
         # Create a sample input with no column names to match the training format
-        #sample_input_no_cols = pd.DataFrame([X_test_scaled[0]]).astype(float)
         sample_input_no_cols = pd.DataFrame([X_test_scaled[0]], dtype="float64")
-
 
         # Log best model, passing an input example with float columns but no feature names
         mlflow.sklearn.log_model(
@@ -88,6 +85,7 @@ def tune_logistic_regression():
     print(f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "
           f"Recall: {recall:.4f}, F1: {f1:.4f}")
     print(f"Confusion Matrix:\n{conf_mat}")
+
 
 if __name__ == "__main__":
     tune_logistic_regression()
