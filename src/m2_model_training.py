@@ -67,7 +67,11 @@ def manual_parameter_experiments():
             )
 
         print(f"Logged experiment with params: {params}")
-        print(f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "f"Recall: {recall:.4f}, F1: {f1:.4f}, MSE: {mse:4f}, r2_score: {r2:4f} ")
+        print(
+            f"Test Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, "
+            f"Recall: {recall:.4f}, F1: {f1:.4f}, "
+            f"MSE: {mse:.4f}, r2_score: {r2:.4f}"
+        )
 
 
 if __name__ == "__main__":
