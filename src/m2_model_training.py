@@ -37,7 +37,7 @@ def manual_parameter_experiments():
             max_iter=params["max_iter"]
         )
 
-        with mlflow.start_run(rclsun_name="Manual_Experiment_params"):
+        with mlflow.start_run(run_name="Manual_Experiment_params"):
             model.fit(X_train_scaled, y_train)
 
             # Evaluate on the test set
@@ -74,6 +74,7 @@ def manual_parameter_experiments():
         print(f"F1: {f1:.4f}")
         print(f"MSE: {mse:.4f}")
         print(f"r2_score: {r2:.4f}")
+        return model
 
 
 if __name__ == "__main__":
