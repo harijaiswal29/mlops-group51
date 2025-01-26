@@ -1,0 +1,5 @@
+[core]
+    remote = azure_remote
+['remote "azure_remote"']
+    url = azure://version-model-container
+    connection_string = DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=datamodelgrp51;AccountKey=TJqeNyqkmg1G4iyvljhoywCyvvfx8iI537ZgxMfFMgrSpiaRcapdDWiTuHtJYDo+udIS01/6IXoH+AStmRIwNQ==;BlobEndpoint=https://datamodelgrp51.blob.core.windows.net/;FileEndpoint=https://datamodelgrp51.file.core.windows.net/;QueueEndpoint=https://datamodelgrp51.queue.core.windows.net/;TableEndpoint=https://datamodelgrp51.table.core.windows.net/
