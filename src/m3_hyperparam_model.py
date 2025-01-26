@@ -70,7 +70,8 @@ def tune_logistic_regression():
         mlflow.log_metric("test_f1_score", f1)
 
         # Create a sample input with no column names to match the training format
-        sample_input_no_cols = pd.DataFrame([X_test_scaled[0]], dtype="float64")
+        sample_input_no_cols = pd.DataFrame([X_test_scaled[0]],
+                                            dtype="float64")
 
         # Log best model, passing an input example with float columns but no feature names
         mlflow.sklearn.log_model(
