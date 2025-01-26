@@ -29,6 +29,7 @@ def manual_parameter_experiments():
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
+    mlflow.set_experiment("Logistic Regresssion Experiment")
     # Loop through each parameter combination and log results
     for params in param_combinations:
         model = LogisticRegression(
@@ -36,7 +37,7 @@ def manual_parameter_experiments():
             solver=params["solver"],
             max_iter=params["max_iter"]
         )
-
+    
         with mlflow.start_run(run_name=f"Manual_Experiment_params"):
             model.fit(X_train_scaled, y_train)
 

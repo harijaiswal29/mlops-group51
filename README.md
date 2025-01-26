@@ -75,6 +75,7 @@ docker build -t mlops-assign .
 
 docker run -p 5000:5000 mlops-assign
 
+docker run -p 5001:5001 mlops-assign
 
 
 

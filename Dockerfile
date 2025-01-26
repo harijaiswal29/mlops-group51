@@ -11,10 +11,9 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the code, including model folder and app.py
-COPY ./model model
-COPY ./src src
+COPY ./models models
+COPY ./src/app.py src/app.py
 
-RUN ls -al
 
 # Define the entrypoint for the container
 CMD ["python", "src/app.py"]

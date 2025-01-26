@@ -48,7 +48,7 @@ def tune_logistic_regression():
     best_model = grid_search.best_estimator_
     best_params = grid_search.best_params_
     best_cv_acc = grid_search.best_score_
-    joblib.dump(best_model,'model/best_model.joblib')
+    joblib.dump(best_model,'models/best_model.joblib')
 
     # 6. Evaluate on hold-out test
     preds_test = best_model.predict(X_test_scaled)
@@ -59,8 +59,11 @@ def tune_logistic_regression():
     conf_mat = confusion_matrix(y_test, preds_test)
 
     # 7. Log results to MLflow
+    mlflow.set_experiment("Logistic Regresssion GridSearchCV Experiment")
+
     with mlflow.start_run(run_name="LogisticRegression_GridSearch_Updated"):
         mlflow.log_params(best_params)
+        mlflow.log_artifact('models/best_model.joblib')
         mlflow.log_metric("best_cv_accuracy", best_cv_acc)
         mlflow.log_metric("test_accuracy", accuracy)
         mlflow.log_metric("test_precision", precision)
