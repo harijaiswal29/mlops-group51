@@ -73,7 +73,7 @@ def tune_logistic_regression():
         sample_input_no_cols = pd.DataFrame([X_test_scaled[0]],
                                             dtype="float64")
 
-        # Log best model, passing an input example with float columns but no feature names
+        # Log best model passing input with float columns but no feat. names
         mlflow.sklearn.log_model(
             sk_model=best_model,
             artifact_path="best_logreg_model",
