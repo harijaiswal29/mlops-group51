@@ -1,7 +1,7 @@
 numpy==1.23.5
 scikit-learn==1.2.0
-pytest
 flake8
 mlflow==2.4.2
 seaborn
 flask==2.2.2
+pytest
