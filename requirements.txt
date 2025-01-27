@@ -3,5 +3,5 @@ scikit-learn==1.2.0
 flake8
 mlflow==2.4.2
 seaborn
-flask==2.2.2
 pytest
+flask==2.2.2
